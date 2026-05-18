@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness 24hr — ฟิตทุกที่ ทุกเวลา</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --red: #e8001c;
+      --red-dark: #b5001a;
+      --white: #f5f5f0;
+      --gray: #1a1a1a;
+      --gray-light: #2a2a2a;
+      --accent: #ff3333;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Sarabun', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232,0,28,0.2);
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 3px;
+      color: var(--white);
+    }
+
+    .logo span { color: var(--red); }
+
+    nav ul {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    nav ul a {
+      color: rgba(245,245,240,0.6);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--red); }
+
+    .nav-cta {
+      background: var(--red);
+      color: var(--white) !important;
+      padding: 10px 24px;
+      border-radius: 2px;
+      letter-spacing: 2px !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--red-dark) !important; color: var(--white) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '24';
+      position: absolute;
+      right: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 480px;
+      color: rgba(232,0,28,0.04);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-content { position: relative; z-index: 2; }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid var(--red);
+      padding: 6px 16px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 8vw, 110px);
+      line-height: 0.95;
+      letter-spacing: 2px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease 0.1s both;
+    }
+
+    .hero h1 .line-red { color: var(--red); display: block; }
+
+    .hero p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(245,245,240,0.6);
+      max-width: 440px;
+      margin-bottom: 40px;
+      animation: fadeUp 0.6s ease 0.2s both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      animation: fadeUp 0.6s ease 0.3s both;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+      padding: 16px 36px;
+      font-family: 'Sarabun', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+    .btn-outline {
+      border: 1px solid rgba(245,245,240,0.3);
+      color: var(--white);
+      padding: 16px 36px;
+      font-family: 'Sarabun', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-outline:hover { border-color: var(--red); color: var(--red); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      position: relative;
+      z-index: 2;
+      padding-left: 80px;
+      animation: fadeUp 0.6s ease 0.4s both;
+    }
+
+    .stat-item { border-left: 3px solid var(--red); padding-left: 24px; }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(245,245,240,0.4);
+      margin-top: 4px;
+    }
+
+    /* COURSES */
+    .courses {
+      padding: 100px 48px;
+      background: var(--gray);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 5vw, 64px);
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .course-card {
+      background: var(--black);
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .course-card:hover { transform: translateY(-4px); }
+    .course-card:hover::before { transform: scaleX(1); }
+
+    .course-icon {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .course-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .course-desc {
+      font-size: 14px;
+      color: rgba(245,245,240,0.5);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .course-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: var(--red);
+    }
+
+    .course-slots {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245,245,240,0.3);
+    }
+
+    /* HOURS */
+    .hours {
+      padding: 100px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hours-text h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 6vw, 80px);
+      letter-spacing: 2px;
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .hours-text h2 span { color: var(--red); }
+
+    .hours-text p {
+      font-size: 16px;
+      color: rgba(245,245,240,0.6);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .hours-card {
+      background: var(--gray);
+      padding: 32px 28px;
+    }
+
+    .hours-day {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 8px;
+    }
+
+    .hours-time {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      letter-spacing: 1px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--gray);
+      border-top: 1px solid rgba(232,0,28,0.2);
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 3px;
+    }
+
+    .footer-logo span { color: var(--red); }
+
+    footer p {
+      font-size: 12px;
+      color: rgba(245,245,240,0.3);
+      letter-spacing: 1px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========================================
+       AGENTFORCE CHAT WIDGET
+       วาง Salesforce Embedded Service Snippet ตรงนี้
+       ======================================== */
+    /* Snippet จะสร้าง Chat Button ที่มุมล่างขวาอัตโนมัติ */
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">FITNESS<span>24</span>HR</div>
+    <ul>
+      <li><a href="#courses">คอร์ส</a></li>
+      <li><a href="#hours">เวลา</a></li>
+      <li><a href="#contact">ติดต่อ</a></li>
+      <li><a href="#" class="nav-cta">สมัครสมาชิก</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">เปิด 24 ชั่วโมง ทุกวัน</div>
+      <h1>
+        ฟิตทุกที่
+        <span class="line-red">ทุกเวลา</span>
+      </h1>
+      <p>ยิมระดับพรีเมียมที่พร้อมให้คุณออกกำลังกายได้ตลอด 24 ชั่วโมง พร้อมคอร์สที่หลากหลายและเทรนเนอร์มืออาชีพ</p>
+      <div class="hero-btns">
+        <a href="#courses" class="btn-primary">ดูคอร์สทั้งหมด</a>
+        <a href="#" class="btn-outline">ทดลองฟรี 7 วัน</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">24</div>
+        <div class="stat-label">ชั่วโมง / 7 วัน</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">คอร์สต่อเดือน</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10K+</div>
+        <div class="stat-label">สมาชิกทั่วประเทศ</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES -->
+  <section class="courses" id="courses">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">คอร์สของเรา</div>
+        <h2 class="section-title">เลือกคอร์สที่ใช่</h2>
+      </div>
+      <a href="#" class="btn-outline">ดูทั้งหมด</a>
+    </div>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-icon">🧘</div>
+        <div class="course-name">Yoga for Beginners</div>
+        <div class="course-desc">โยคะสำหรับผู้เริ่มต้น เหมาะสำหรับทุกเพศทุกวัย เสริมความยืดหยุ่นและผ่อนคลายจิตใจ</div>
+        <div class="course-meta">
+          <div class="course-price">1,500 ฿</div>
+          <div class="course-slots">17 ที่นั่งว่าง</div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-icon">🥊</div>
+        <div class="course-name">Muay Thai Fitness</div>
+        <div class="course-desc">มวยไทยเพื่อสุขภาพ เสริมความแข็งแกร่งและความยืดหยุ่น เผาผลาญแคลอรีสูง</div>
+        <div class="course-meta">
+          <div class="course-price">2,000 ฿</div>
+          <div class="course-slots">9 ที่นั่งว่าง</div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-icon">🏃</div>
+        <div class="course-name">Cardio Blast</div>
+        <div class="course-desc">คาร์ดิโอเผาผลาญสูง เหมาะสำหรับคนอยากลดน้ำหนัก เพิ่มความทนทานของร่างกาย</div>
+        <div class="course-meta">
+          <div class="course-price">1,800 ฿</div>
+          <div class="course-slots">13 ที่นั่งว่าง</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOURS -->
+  <section class="hours" id="hours">
+    <div class="hours-text">
+      <div class="section-tag">เวลาทำการ</div>
+      <h2>เปิด<span>ทุกวัน</span><br>ไม่มีวันหยุด</h2>
+      <p>เราเปิดให้บริการตลอด 24 ชั่วโมง 7 วันต่อสัปดาห์ เพื่อให้คุณออกกำลังกายได้ตามเวลาที่สะดวก</p>
+      <a href="#" class="btn-primary">สมัครสมาชิกวันนี้</a>
+    </div>
+    <div class="hours-grid">
+      <div class="hours-card">
+        <div class="hours-day">จันทร์ - ศุกร์</div>
+        <div class="hours-time">00:00 - 24:00</div>
+      </div>
+      <div class="hours-card">
+        <div class="hours-day">เสาร์ - อาทิตย์</div>
+        <div class="hours-time">00:00 - 24:00</div>
+      </div>
+      <div class="hours-card">
+        <div class="hours-day">วันหยุดนักขัตฤกษ์</div>
+        <div class="hours-time">00:00 - 24:00</div>
+      </div>
+      <div class="hours-card">
+        <div class="hours-day">สายด่วน</div>
+        <div class="hours-time">02-XXX-XXXX</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-logo">FITNESS<span>24</span>HR</div>
+    <p>© 2026 Fitness 24hr. All rights reserved.</p>
+    <p>สมัครสมาชิก Course ได้ตลอด 24 ชั่วโมง ผ่าน Chat ด้านล่างขวา →</p>
+  </footer>
+
+  <!-- ========================================
+       วาง Agentforce Embedded Service Snippet ตรงนี้
+       ได้จาก Setup → Messaging Settings → Fitness Web Chat → Snippet
+       ======================================== -->
+
+
+<script type='text/javascript'>
+    function initEmbeddedMessaging() {
+        try {
+            embeddedservice_bootstrap.settings.language = 'en_US';
+            embeddedservice_bootstrap.init(
+                '00DgL00000RoyKn',
+                'Fitness_Web_Chat_2',
+                'https://ii1778673460287.my.site.com/ESWFitnessWebChat21779009091307',
+                {
+                    scrt2URL: 'https://ii1778673460287.my.salesforce-scrt.com'
+                }
+            );
+        } catch (err) {
+            console.error('Error loading Embedded Messaging: ', err);
+        }
+    };
+</script>
+<script type='text/javascript' src='https://ii1778673460287.my.site.com/ESWFitnessWebChat21779009091307/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+
+</body>
+</html>

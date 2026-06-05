@@ -983,21 +983,24 @@
 
   <!-- Agentforce Embedded Chat -->
   <script type='text/javascript'>
-    function initEmbeddedMessaging() {
-      try {
-        embeddedservice_bootstrap.settings.language = 'en_US';
-        embeddedservice_bootstrap.init(
-          '00DgL00000RoyKn',
-          'Fitness_GitHub_Chat',
-          'https://ii1778673460287.my.site.com/ESWFitnessGitHubChat1779182153166',
-          { scrt2URL: 'https://ii1778673460287.my.salesforce-scrt.com' }
-        );
-      } catch (err) {
-        console.error('Error loading Embedded Messaging: ', err);
-      }
-    }
+	function initEmbeddedMessaging() {
+		try {
+			embeddedservice_bootstrap.settings.language = 'en_US';
+
+			embeddedservice_bootstrap.init(
+				'00DId000000JBZ1',
+				'Jetts_Web_Chat',
+				'https://trailsignup-46bc66a30e911c.my.site.com/ESWJettsWebChat1780697650408',
+				{
+					scrt2URL: 'https://trailsignup-46bc66a30e911c.my.salesforce-scrt.com'
+				}
+			);
+		} catch (err) {
+			console.error('Error loading Embedded Messaging: ', err);
+		}
+	};
   </script>
-  <script type='text/javascript' src='https://ii1778673460287.my.site.com/ESWFitnessGitHubChat1779182153166/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+  <script type='text/javascript' src='https://trailsignup-46bc66a30e911c.my.site.com/ESWJettsWebChat1780697650408/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
 </body>
 </html>

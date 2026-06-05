@@ -3,478 +3,886 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fitness 24hr — ฟิตทุกที่ ทุกเวลา</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>Fitness 24HR — No Lock-In. Just Results.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sarabun:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #0a0a0a;
-      --red: #e8001c;
-      --red-dark: #b5001a;
-      --white: #f5f5f0;
-      --gray: #1a1a1a;
-      --gray-light: #2a2a2a;
-      --accent: #ff3333;
+      --yellow: #FFD200;
+      --yellow-dark: #e6bc00;
+      --black: #111111;
+      --black-soft: #1a1a1a;
+      --white: #ffffff;
+      --gray: #f4f4f4;
+      --gray-dark: #2a2a2a;
+      --text-muted: #888888;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--black);
-      color: var(--white);
+      background: var(--white);
+      color: var(--black);
       font-family: 'Sarabun', sans-serif;
-      font-weight: 300;
+      font-weight: 400;
       overflow-x: hidden;
     }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
+      background: var(--black);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 48px;
-      background: rgba(10,10,10,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(232,0,28,0.2);
+      padding: 0 48px;
+      height: 68px;
     }
 
     .logo {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px;
+      font-size: 26px;
       letter-spacing: 3px;
       color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .logo span { color: var(--red); }
+    .logo .logo-badge {
+      background: var(--yellow);
+      color: var(--black);
+      font-size: 13px;
+      font-weight: 800;
+      font-family: 'Sarabun', sans-serif;
+      padding: 2px 8px;
+      border-radius: 2px;
+      letter-spacing: 1px;
+    }
 
     nav ul {
       display: flex;
-      gap: 36px;
+      align-items: center;
+      gap: 32px;
       list-style: none;
     }
 
     nav ul a {
-      color: rgba(245,245,240,0.6);
+      color: rgba(255,255,255,0.7);
       text-decoration: none;
       font-size: 13px;
       font-weight: 600;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       transition: color 0.2s;
     }
 
-    nav ul a:hover { color: var(--red); }
+    nav ul a:hover { color: var(--yellow); }
 
     .nav-cta {
-      background: var(--red);
-      color: var(--white) !important;
-      padding: 10px 24px;
-      border-radius: 2px;
-      letter-spacing: 2px !important;
+      background: var(--yellow) !important;
+      color: var(--black) !important;
+      padding: 10px 22px;
+      font-weight: 800 !important;
+      border-radius: 3px;
       transition: background 0.2s !important;
     }
 
-    .nav-cta:hover { background: var(--red-dark) !important; color: var(--white) !important; }
+    .nav-cta:hover { background: var(--yellow-dark) !important; }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero {
       min-height: 100vh;
+      background: var(--black);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 120px 48px 80px;
+      align-items: stretch;
+      padding-top: 68px;
       position: relative;
       overflow: hidden;
     }
 
-    .hero::before {
-      content: '24';
-      position: absolute;
-      right: -40px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 480px;
-      color: rgba(232,0,28,0.04);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 56px 80px 80px;
+      position: relative;
+      z-index: 2;
     }
 
-    .hero-content { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
 
-    .hero-tag {
-      display: inline-block;
+    .hero-eyebrow .dot {
+      width: 8px; height: 8px;
+      background: var(--yellow);
+      border-radius: 50%;
+    }
+
+    .hero-eyebrow span {
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 4px;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--red);
-      border: 1px solid var(--red);
-      padding: 6px 16px;
-      margin-bottom: 32px;
-      animation: fadeUp 0.6s ease both;
+      color: var(--yellow);
     }
 
     .hero h1 {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(64px, 8vw, 110px);
-      line-height: 0.95;
-      letter-spacing: 2px;
-      margin-bottom: 28px;
-      animation: fadeUp 0.6s ease 0.1s both;
+      font-size: clamp(72px, 9vw, 120px);
+      line-height: 0.92;
+      letter-spacing: 1px;
+      color: var(--white);
+      margin-bottom: 32px;
     }
 
-    .hero h1 .line-red { color: var(--red); display: block; }
+    .hero h1 .highlight {
+      color: var(--yellow);
+    }
 
     .hero p {
       font-size: 16px;
       line-height: 1.8;
-      color: rgba(245,245,240,0.6);
-      max-width: 440px;
-      margin-bottom: 40px;
-      animation: fadeUp 0.6s ease 0.2s both;
+      color: rgba(255,255,255,0.55);
+      max-width: 420px;
+      margin-bottom: 44px;
     }
 
     .hero-btns {
       display: flex;
-      gap: 16px;
-      animation: fadeUp 0.6s ease 0.3s both;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
-    .btn-primary {
-      background: var(--red);
-      color: var(--white);
-      padding: 16px 36px;
-      font-family: 'Sarabun', sans-serif;
-      font-weight: 700;
+    .btn-yellow {
+      background: var(--yellow);
+      color: var(--black);
+      padding: 15px 36px;
+      font-weight: 800;
       font-size: 13px;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       border: none;
       cursor: pointer;
+      border-radius: 3px;
       transition: background 0.2s, transform 0.2s;
       text-decoration: none;
       display: inline-block;
     }
 
-    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .btn-yellow:hover { background: var(--yellow-dark); transform: translateY(-2px); }
 
-    .btn-outline {
-      border: 1px solid rgba(245,245,240,0.3);
+    .btn-ghost {
+      border: 1.5px solid rgba(255,255,255,0.25);
       color: var(--white);
-      padding: 16px 36px;
-      font-family: 'Sarabun', sans-serif;
+      padding: 15px 36px;
       font-weight: 600;
       font-size: 13px;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       background: transparent;
       cursor: pointer;
-      transition: border-color 0.2s, transform 0.2s;
+      border-radius: 3px;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
       text-decoration: none;
       display: inline-block;
     }
 
-    .btn-outline:hover { border-color: var(--red); color: var(--red); transform: translateY(-2px); }
+    .btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
 
-    .hero-stats {
+    .hero-right {
+      background: var(--black-soft);
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right .big-number {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 320px;
+      color: rgba(255,210,0,0.06);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .hero-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid rgba(255,255,255,0.07);
       position: relative;
       z-index: 2;
-      padding-left: 80px;
-      animation: fadeUp 0.6s ease 0.4s both;
     }
 
-    .stat-item { border-left: 3px solid var(--red); padding-left: 24px; }
+    .hero-stat {
+      padding: 32px 28px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
 
-    .stat-number {
+    .hero-stat:last-child { border-right: none; }
+
+    .hero-stat .num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 64px;
+      font-size: 52px;
+      color: var(--yellow);
       line-height: 1;
-      color: var(--white);
     }
 
-    .stat-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 3px;
+    .hero-stat .lbl {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(245,245,240,0.4);
+      color: rgba(255,255,255,0.35);
       margin-top: 4px;
     }
 
-    /* COURSES */
-    .courses {
-      padding: 100px 48px;
-      background: var(--gray);
-    }
-
-    .section-header {
+    /* ── PERKS STRIP ── */
+    .perks {
+      background: var(--yellow);
       display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 60px;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      overflow: hidden;
     }
 
-    .section-tag {
+    .perk-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 40px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--black);
+      border-right: 1.5px solid rgba(0,0,0,0.12);
+    }
+
+    .perk-item:last-child { border-right: none; }
+
+    .perk-item svg { flex-shrink: 0; }
+
+    /* ── MEMBERSHIP ── */
+    .membership {
+      padding: 100px 80px;
+      background: var(--white);
+    }
+
+    .section-label {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: var(--red);
+      color: var(--yellow-dark);
       margin-bottom: 12px;
     }
 
     .section-title {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(40px, 5vw, 64px);
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       line-height: 1;
+      color: var(--black);
+      margin-bottom: 16px;
     }
 
-    .courses-grid {
+    .section-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 56px;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .plans-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
+      gap: 24px;
     }
 
-    .course-card {
+    .plan-card {
+      border: 2px solid #e8e8e8;
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+    }
+
+    .plan-card:hover { border-color: var(--yellow); transform: translateY(-4px); }
+
+    .plan-card.featured {
+      border-color: var(--yellow);
+    }
+
+    .plan-badge {
+      background: var(--yellow);
+      color: var(--black);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      text-align: center;
+    }
+
+    .plan-body {
+      padding: 36px 32px;
+    }
+
+    .plan-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 1px;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+
+    .plan-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .plan-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      line-height: 1;
+      color: var(--black);
+    }
+
+    .plan-price sub {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-muted);
+      vertical-align: bottom;
+      margin-left: 4px;
+    }
+
+    .plan-period {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+      color: var(--black);
+    }
+
+    .plan-features li:last-child { border-bottom: none; }
+
+    .check {
+      width: 18px; height: 18px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .btn-plan {
+      width: 100%;
       background: var(--black);
+      color: var(--white);
+      padding: 15px;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+
+    .plan-card.featured .btn-plan {
+      background: var(--yellow);
+      color: var(--black);
+    }
+
+    .btn-plan:hover { opacity: 0.85; }
+
+    /* ── CLASSES ── */
+    .classes {
+      padding: 100px 80px;
+      background: var(--black);
+    }
+
+    .classes .section-title { color: var(--white); }
+    .classes .section-label { color: var(--yellow); }
+    .classes .section-sub { color: rgba(255,255,255,0.45); }
+
+    .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .class-card {
+      background: var(--black-soft);
       padding: 40px 32px;
       position: relative;
       overflow: hidden;
-      transition: transform 0.3s;
       cursor: pointer;
+      transition: background 0.3s;
     }
 
-    .course-card::before {
+    .class-card:hover { background: #222; }
+
+    .class-card::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0;
       width: 100%; height: 3px;
-      background: var(--red);
+      background: var(--yellow);
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.3s;
     }
 
-    .course-card:hover { transform: translateY(-4px); }
-    .course-card:hover::before { transform: scaleX(1); }
+    .class-card:hover::after { transform: scaleX(1); }
 
-    .course-icon {
-      font-size: 36px;
+    .class-icon {
+      font-size: 32px;
       margin-bottom: 20px;
     }
 
-    .course-name {
+    .class-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px;
+      font-size: 26px;
       letter-spacing: 1px;
-      margin-bottom: 12px;
+      color: var(--white);
+      margin-bottom: 10px;
     }
 
-    .course-desc {
+    .class-desc {
       font-size: 14px;
-      color: rgba(245,245,240,0.5);
+      color: rgba(255,255,255,0.45);
       line-height: 1.7;
       margin-bottom: 24px;
     }
 
-    .course-meta {
+    .class-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .course-price {
+    .class-price {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 32px;
-      color: var(--red);
+      font-size: 30px;
+      color: var(--yellow);
     }
 
-    .course-slots {
-      font-size: 12px;
-      font-weight: 600;
+    .class-slots {
+      font-size: 11px;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(245,245,240,0.3);
+      color: rgba(255,255,255,0.25);
     }
 
-    /* HOURS */
+    /* ── HOURS ── */
     .hours {
-      padding: 100px 48px;
+      padding: 100px 80px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: center;
+      background: var(--white);
     }
 
-    .hours-text h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(48px, 6vw, 80px);
-      letter-spacing: 2px;
-      line-height: 1;
-      margin-bottom: 24px;
-    }
-
-    .hours-text h2 span { color: var(--red); }
+    .hours-text .section-title { margin-bottom: 16px; }
 
     .hours-text p {
       font-size: 16px;
-      color: rgba(245,245,240,0.6);
+      color: var(--text-muted);
       line-height: 1.8;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
     }
 
     .hours-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2px;
+      gap: 3px;
     }
 
     .hours-card {
       background: var(--gray);
       padding: 32px 28px;
+      border-radius: 4px;
     }
 
     .hours-day {
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 3px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: var(--red);
+      color: var(--text-muted);
       margin-bottom: 8px;
     }
 
     .hours-time {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 36px;
+      font-size: 38px;
       letter-spacing: 1px;
+      color: var(--black);
     }
 
-    /* FOOTER */
-    footer {
-      background: var(--gray);
-      border-top: 1px solid rgba(232,0,28,0.2);
-      padding: 48px;
+    .hours-card.open-24 { background: var(--yellow); }
+    .hours-card.open-24 .hours-day { color: rgba(0,0,0,0.5); }
+    .hours-card.open-24 .hours-time { color: var(--black); }
+
+    /* ── APP BANNER ── */
+    .app-banner {
+      background: var(--yellow);
+      padding: 72px 80px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .app-banner h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 5vw, 60px);
+      letter-spacing: 1.5px;
+      line-height: 1;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    .app-banner p {
+      font-size: 15px;
+      color: rgba(0,0,0,0.55);
+      max-width: 440px;
+      line-height: 1.7;
+    }
+
+    .app-store-btns {
+      display: flex;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .store-btn {
+      background: var(--black);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 6px;
+      text-decoration: none;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 12px;
+      transition: opacity 0.2s;
     }
 
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 24px;
-      letter-spacing: 3px;
-    }
+    .store-btn:hover { opacity: 0.82; }
 
-    .footer-logo span { color: var(--red); }
+    .store-btn .store-icon { font-size: 22px; }
 
-    footer p {
-      font-size: 12px;
-      color: rgba(245,245,240,0.3);
+    .store-btn .store-text small {
+      display: block;
+      font-size: 10px;
       letter-spacing: 1px;
+      opacity: 0.6;
+      text-transform: uppercase;
     }
 
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
+    .store-btn .store-text strong {
+      font-size: 15px;
+      font-weight: 700;
     }
 
-    /* ========================================
-       AGENTFORCE CHAT WIDGET
-       วาง Salesforce Embedded Service Snippet ตรงนี้
-       ======================================== */
-    /* Snippet จะสร้าง Chat Button ที่มุมล่างขวาอัตโนมัติ */
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 56px 80px 32px;
+    }
 
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 32px;
+    }
+
+    .footer-brand .logo {
+      font-size: 22px;
+      margin-bottom: 16px;
+      display: inline-flex;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.8;
+    }
+
+    .footer-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul a:hover { color: var(--yellow); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .footer-bottom .chat-hint {
+      font-size: 12px;
+      color: var(--yellow);
+      font-weight: 600;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 60px 24px 40px; }
+      .hero-right { min-height: 260px; }
+      .hero-stats-bar { grid-template-columns: repeat(3, 1fr); }
+      .perks { flex-wrap: wrap; }
+      .perk-item { padding: 14px 20px; }
+      .membership, .classes, .hours, .app-banner, footer { padding-left: 24px; padding-right: 24px; }
+      .plans-grid, .classes-grid { grid-template-columns: 1fr; }
+      .hours { grid-template-columns: 1fr; gap: 40px; }
+      .app-banner { grid-template-columns: 1fr; }
+      .app-store-btns { flex-wrap: wrap; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
 
   <!-- NAVIGATION -->
   <nav>
-    <div class="logo">FITNESS<span>24</span>HR</div>
+    <div class="logo">
+      FITNESS<span class="logo-badge">24HR</span>
+    </div>
     <ul>
-      <li><a href="#courses">คอร์ส</a></li>
-      <li><a href="#hours">เวลา</a></li>
-      <li><a href="#contact">ติดต่อ</a></li>
-      <li><a href="#" class="nav-cta">สมัครสมาชิก</a></li>
+      <li><a href="#membership">แพ็กเกจ</a></li>
+      <li><a href="#classes">คลาส</a></li>
+      <li><a href="#hours">เวลาทำการ</a></li>
+      <li><a href="#contact">ติดต่อเรา</a></li>
+      <li><a href="#membership" class="nav-cta">สมัครสมาชิก</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-content">
-      <div class="hero-tag">เปิด 24 ชั่วโมง ทุกวัน</div>
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="dot"></div>
+        <span>เปิด 24 ชั่วโมง · 7 วัน · ไม่มีวันหยุด</span>
+      </div>
       <h1>
-        ฟิตทุกที่
-        <span class="line-red">ทุกเวลา</span>
+        ไม่มี<br>
+        สัญญา<br>
+        <span class="highlight">ผูกมัด</span>
       </h1>
-      <p>ยิมระดับพรีเมียมที่พร้อมให้คุณออกกำลังกายได้ตลอด 24 ชั่วโมง พร้อมคอร์สที่หลากหลายและเทรนเนอร์มืออาชีพ</p>
+      <p>ฟิตเนสที่ยืดหยุ่นที่สุด — สมัครได้เลย หยุดได้ทุกเมื่อ เข้าได้ทุกสาขา ออกกำลังกายได้ตลอด 24 ชั่วโมง</p>
       <div class="hero-btns">
-        <a href="#courses" class="btn-primary">ดูคอร์สทั้งหมด</a>
-        <a href="#" class="btn-outline">ทดลองฟรี 7 วัน</a>
+        <a href="#membership" class="btn-yellow">เริ่มต้นวันนี้</a>
+        <a href="#classes" class="btn-ghost">ดูคลาสทั้งหมด</a>
       </div>
     </div>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-number">24</div>
-        <div class="stat-label">ชั่วโมง / 7 วัน</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">50+</div>
-        <div class="stat-label">คอร์สต่อเดือน</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">10K+</div>
-        <div class="stat-label">สมาชิกทั่วประเทศ</div>
+    <div class="hero-right">
+      <div class="big-number">24</div>
+      <div class="hero-stats-bar">
+        <div class="hero-stat">
+          <div class="num">24/7</div>
+          <div class="lbl">เปิดตลอด</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">50+</div>
+          <div class="lbl">คลาสต่อเดือน</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">10K+</div>
+          <div class="lbl">สมาชิก</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- COURSES -->
-  <section class="courses" id="courses">
-    <div class="section-header">
-      <div>
-        <div class="section-tag">คอร์สของเรา</div>
-        <h2 class="section-title">เลือกคอร์สที่ใช่</h2>
-      </div>
-      <a href="#" class="btn-outline">ดูทั้งหมด</a>
+  <!-- PERKS STRIP -->
+  <div class="perks">
+    <div class="perk-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#111" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg>
+      ไม่มีสัญญาผูกมัด
     </div>
-    <div class="courses-grid">
-      <div class="course-card">
-        <div class="course-icon">🧘</div>
-        <div class="course-name">Yoga for Beginners</div>
-        <div class="course-desc">โยคะสำหรับผู้เริ่มต้น เหมาะสำหรับทุกเพศทุกวัย เสริมความยืดหยุ่นและผ่อนคลายจิตใจ</div>
-        <div class="course-meta">
-          <div class="course-price">1,500 ฿</div>
-          <div class="course-slots">17 ที่นั่งว่าง</div>
+    <div class="perk-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#111" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg>
+      เปิด 24 ชั่วโมง
+    </div>
+    <div class="perk-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#111" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg>
+      เข้าได้ทุกสาขา
+    </div>
+    <div class="perk-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#111" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg>
+      อุปกรณ์ระดับพรีเมียม
+    </div>
+    <div class="perk-item">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#111" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg>
+      แอปจัดการสมาชิก
+    </div>
+  </div>
+
+  <!-- MEMBERSHIP -->
+  <section class="membership" id="membership">
+    <div class="section-label">แพ็กเกจสมาชิก</div>
+    <h2 class="section-title">เลือกแพ็กเกจที่ใช่</h2>
+    <p class="section-sub">ยืดหยุ่น หยุดได้ทุกเมื่อ ไม่มีค่าปรับ — เริ่มต้นได้วันนี้เลย</p>
+    <div class="plans-grid">
+
+      <div class="plan-card">
+        <div class="plan-body">
+          <div class="plan-name">Basic</div>
+          <div class="plan-desc">เหมาะสำหรับผู้เริ่มต้น ใช้อุปกรณ์ได้ครบ</div>
+          <div class="plan-price">599<sub>฿/เดือน</sub></div>
+          <div class="plan-period">ไม่มีสัญญาผูกมัด</div>
+          <ul class="plan-features">
+            <li><span class="check">✓</span> เข้าได้ 1 สาขา</li>
+            <li><span class="check">✓</span> อุปกรณ์ครบครัน</li>
+            <li><span class="check">✓</span> เปิด 24 ชั่วโมง</li>
+            <li><span class="check">✓</span> แอปจัดการสมาชิก</li>
+          </ul>
+          <a href="#" class="btn-plan">สมัครแพ็กเกจนี้</a>
         </div>
       </div>
-      <div class="course-card">
-        <div class="course-icon">🥊</div>
-        <div class="course-name">Muay Thai Fitness</div>
-        <div class="course-desc">มวยไทยเพื่อสุขภาพ เสริมความแข็งแกร่งและความยืดหยุ่น เผาผลาญแคลอรีสูง</div>
-        <div class="course-meta">
-          <div class="course-price">2,000 ฿</div>
-          <div class="course-slots">9 ที่นั่งว่าง</div>
+
+      <div class="plan-card featured">
+        <div class="plan-badge">ยอดนิยม</div>
+        <div class="plan-body">
+          <div class="plan-name">All Access</div>
+          <div class="plan-desc">เข้าได้ทุกสาขา รวมคลาส Group ไม่จำกัด</div>
+          <div class="plan-price">999<sub>฿/เดือน</sub></div>
+          <div class="plan-period">ไม่มีสัญญาผูกมัด</div>
+          <ul class="plan-features">
+            <li><span class="check">✓</span> เข้าได้ทุกสาขา</li>
+            <li><span class="check">✓</span> คลาส Group ไม่จำกัด</li>
+            <li><span class="check">✓</span> เปิด 24 ชั่วโมง</li>
+            <li><span class="check">✓</span> Personal Trainer 1 ครั้ง/เดือน</li>
+          </ul>
+          <a href="#" class="btn-plan">สมัครแพ็กเกจนี้</a>
         </div>
       </div>
-      <div class="course-card">
-        <div class="course-icon">🏃</div>
-        <div class="course-name">Cardio Blast</div>
-        <div class="course-desc">คาร์ดิโอเผาผลาญสูง เหมาะสำหรับคนอยากลดน้ำหนัก เพิ่มความทนทานของร่างกาย</div>
-        <div class="course-meta">
-          <div class="course-price">1,800 ฿</div>
-          <div class="course-slots">13 ที่นั่งว่าง</div>
+
+      <div class="plan-card">
+        <div class="plan-body">
+          <div class="plan-name">Premium</div>
+          <div class="plan-desc">ครบทุกสิทธิ์ + PT ส่วนตัวและโภชนาการ</div>
+          <div class="plan-price">1,799<sub>฿/เดือน</sub></div>
+          <div class="plan-period">ไม่มีสัญญาผูกมัด</div>
+          <ul class="plan-features">
+            <li><span class="check">✓</span> เข้าได้ทุกสาขา</li>
+            <li><span class="check">✓</span> คลาสไม่จำกัดทุกประเภท</li>
+            <li><span class="check">✓</span> Personal Trainer 4 ครั้ง/เดือน</li>
+            <li><span class="check">✓</span> แผนโภชนาการส่วนตัว</li>
+          </ul>
+          <a href="#" class="btn-plan">สมัครแพ็กเกจนี้</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLASSES -->
+  <section class="classes" id="classes">
+    <div class="section-label">คลาสของเรา</div>
+    <h2 class="section-title">เลือกคลาสที่ชอบ</h2>
+    <p class="section-sub">คลาสกลุ่มหลากหลายกว่า 50 คลาสต่อเดือน ดูแลโดยเทรนเนอร์มืออาชีพ</p>
+    <div class="classes-grid">
+      <div class="class-card">
+        <div class="class-icon">🧘</div>
+        <div class="class-name">Yoga for Beginners</div>
+        <div class="class-desc">โยคะสำหรับผู้เริ่มต้น เสริมความยืดหยุ่น ผ่อนคลายจิตใจ เหมาะทุกเพศทุกวัย</div>
+        <div class="class-meta">
+          <div class="class-price">1,500 ฿</div>
+          <div class="class-slots">17 ที่นั่งว่าง</div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-icon">🥊</div>
+        <div class="class-name">Muay Thai Fitness</div>
+        <div class="class-desc">มวยไทยเพื่อสุขภาพ เสริมความแข็งแกร่ง เผาผลาญแคลอรีสูงสุด</div>
+        <div class="class-meta">
+          <div class="class-price">2,000 ฿</div>
+          <div class="class-slots">9 ที่นั่งว่าง</div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-icon">🏃</div>
+        <div class="class-name">Cardio Blast</div>
+        <div class="class-desc">คาร์ดิโอเผาผลาญสูง เหมาะสำหรับคนอยากลดน้ำหนัก เพิ่มความทนทาน</div>
+        <div class="class-meta">
+          <div class="class-price">1,800 ฿</div>
+          <div class="class-slots">13 ที่นั่งว่าง</div>
         </div>
       </div>
     </div>
@@ -483,23 +891,23 @@
   <!-- HOURS -->
   <section class="hours" id="hours">
     <div class="hours-text">
-      <div class="section-tag">เวลาทำการ</div>
-      <h2>เปิด<span>ทุกวัน</span><br>ไม่มีวันหยุด</h2>
-      <p>เราเปิดให้บริการตลอด 24 ชั่วโมง 7 วันต่อสัปดาห์ เพื่อให้คุณออกกำลังกายได้ตามเวลาที่สะดวก</p>
-      <a href="#" class="btn-primary">สมัครสมาชิกวันนี้</a>
+      <div class="section-label">เวลาทำการ</div>
+      <h2 class="section-title">เปิดทุกวัน<br>ไม่มีวันหยุด</h2>
+      <p>เราเปิดให้บริการตลอด 24 ชั่วโมง 7 วันต่อสัปดาห์ รวมถึงวันหยุดนักขัตฤกษ์ ออกกำลังกายได้ตามเวลาที่สะดวกของคุณ</p>
+      <a href="#membership" class="btn-yellow">สมัครสมาชิกวันนี้</a>
     </div>
     <div class="hours-grid">
-      <div class="hours-card">
-        <div class="hours-day">จันทร์ - ศุกร์</div>
-        <div class="hours-time">00:00 - 24:00</div>
+      <div class="hours-card open-24">
+        <div class="hours-day">จันทร์ — ศุกร์</div>
+        <div class="hours-time">24 ชม.</div>
       </div>
-      <div class="hours-card">
-        <div class="hours-day">เสาร์ - อาทิตย์</div>
-        <div class="hours-time">00:00 - 24:00</div>
+      <div class="hours-card open-24">
+        <div class="hours-day">เสาร์ — อาทิตย์</div>
+        <div class="hours-time">24 ชม.</div>
       </div>
       <div class="hours-card">
         <div class="hours-day">วันหยุดนักขัตฤกษ์</div>
-        <div class="hours-time">00:00 - 24:00</div>
+        <div class="hours-time">24 ชม.</div>
       </div>
       <div class="hours-card">
         <div class="hours-day">สายด่วน</div>
@@ -508,39 +916,88 @@
     </div>
   </section>
 
+  <!-- APP BANNER -->
+  <section class="app-banner">
+    <div>
+      <h2>จัดการสมาชิก<br>ผ่านแอปได้เลย</h2>
+      <p>จองคลาส ดูตาราง ตรวจสอบสมาชิก และติดต่อเทรนเนอร์ — ทุกอย่างอยู่ในแอปเดียว</p>
+    </div>
+    <div class="app-store-btns">
+      <a href="#" class="store-btn">
+        <span class="store-icon">🍎</span>
+        <div class="store-text">
+          <small>Download on the</small>
+          <strong>App Store</strong>
+        </div>
+      </a>
+      <a href="#" class="store-btn">
+        <span class="store-icon">▶</span>
+        <div class="store-text">
+          <small>Get it on</small>
+          <strong>Google Play</strong>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer id="contact">
-    <div class="footer-logo">FITNESS<span>24</span>HR</div>
-    <p>© 2026 Fitness 24hr. All rights reserved.</p>
-    <p>สมัครสมาชิก Course ได้ตลอด 24 ชั่วโมง ผ่าน Chat ด้านล่างขวา →</p>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">FITNESS<span class="logo-badge">24HR</span></div>
+        <p>ฟิตเนสที่ยืดหยุ่นที่สุด เปิด 24 ชั่วโมง ทุกวัน ไม่มีสัญญาผูกมัด สมัครได้วันนี้เลย</p>
+      </div>
+      <div class="footer-col">
+        <h4>สมาชิก</h4>
+        <ul>
+          <li><a href="#">สมัครสมาชิก</a></li>
+          <li><a href="#">แพ็กเกจทั้งหมด</a></li>
+          <li><a href="#">ทดลองฟรี 7 วัน</a></li>
+          <li><a href="#">ระงับสมาชิก</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>บริการ</h4>
+        <ul>
+          <li><a href="#">คลาสกลุ่ม</a></li>
+          <li><a href="#">Personal Trainer</a></li>
+          <li><a href="#">แผนโภชนาการ</a></li>
+          <li><a href="#">แอปมือถือ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>ติดต่อ</h4>
+        <ul>
+          <li><a href="#">สาขาของเรา</a></li>
+          <li><a href="#">02-XXX-XXXX</a></li>
+          <li><a href="#">info@fitness24hr.co.th</a></li>
+          <li><a href="#">Facebook / LINE</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Fitness 24HR. All rights reserved.</p>
+      <p class="chat-hint">💬 สมัครสมาชิกผ่าน Chat ได้เลย →</p>
+    </div>
   </footer>
 
-  <!-- ========================================
-       วาง Agentforce Embedded Service Snippet ตรงนี้
-       ได้จาก Setup → Messaging Settings → Fitness Web Chat → Snippet
-       ======================================== -->
-
-
-<script type='text/javascript'>
-	function initEmbeddedMessaging() {
-		try {
-			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
-
-			embeddedservice_bootstrap.init(
-				'00DgL00000RoyKn',
-				'Fitness_GitHub_Chat',
-				'https://ii1778673460287.my.site.com/ESWFitnessGitHubChat1779182153166',
-				{
-					scrt2URL: 'https://ii1778673460287.my.salesforce-scrt.com'
-				}
-			);
-		} catch (err) {
-			console.error('Error loading Embedded Messaging: ', err);
-		}
-	};
-</script>
-<script type='text/javascript' src='https://ii1778673460287.my.site.com/ESWFitnessGitHubChat1779182153166/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
-
+  <!-- Agentforce Embedded Chat -->
+  <script type='text/javascript'>
+    function initEmbeddedMessaging() {
+      try {
+        embeddedservice_bootstrap.settings.language = 'en_US';
+        embeddedservice_bootstrap.init(
+          '00DgL00000RoyKn',
+          'Fitness_GitHub_Chat',
+          'https://ii1778673460287.my.site.com/ESWFitnessGitHubChat1779182153166',
+          { scrt2URL: 'https://ii1778673460287.my.salesforce-scrt.com' }
+        );
+      } catch (err) {
+        console.error('Error loading Embedded Messaging: ', err);
+      }
+    }
+  </script>
+  <script type='text/javascript' src='https://ii1778673460287.my.site.com/ESWFitnessGitHubChat1779182153166/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
 </body>
 </html>

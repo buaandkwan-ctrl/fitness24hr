@@ -126,22 +126,23 @@ public with sharing class JettsBranchLookupController {
         }
         Double radiusKm = Math.round(maxDist * 10) / 10.0;
 
-        String output = 'สาขาใกล้สถานี ' + stationLabel + ' (รัศมีประมาณ ' + radiusKm + ' กม.):\n\n';
-
+        String header = 'สาขาใกล้สถานี ' + stationLabel + ' (รัศมีประมาณ ' + radiusKm + ' กม.):';
+        List<String> items = new List<String>();
+        Integer i = 1;
         for (Branch__c b : branches) {
             String typeTag = '';
             if (b.Branch_Type__c == 'Jetts Black') typeTag = ' [Jetts Black]';
             else if (b.Branch_Type__c == 'Flagship HYROX') typeTag = ' [Flagship HYROX]';
 
-            output += '* ' + b.Name + typeTag + '\n';
-            if (String.isNotBlank(b.Full_Address__c)) {
-                output += '  ' + b.Full_Address__c + '\n';
-            } else if (String.isNotBlank(b.District__c)) {
-                output += '  ' + b.District__c + '\n';
-            }
+            String addr = '';
+            if (String.isNotBlank(b.Full_Address__c)) addr = ' — ' + b.Full_Address__c;
+            else if (String.isNotBlank(b.District__c)) addr = ' — ' + b.District__c;
+
+            items.add(i + '. ' + b.Name + typeTag + addr);
+            i++;
         }
 
-        result.branchListText = output.trim();
+        result.branchListText = header + '\n' + String.join(items, '\n');
         return result;
     }
 

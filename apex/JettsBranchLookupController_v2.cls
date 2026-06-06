@@ -64,7 +64,7 @@ public with sharing class JettsBranchLookupController {
         return searchByKeyword(req.searchTerm, req.branchTypeFilter, maxRows);
     }
 
-    private static Double haversineKm(Double lat1, Double lon1, Double lat2, Double lon2) {
+    private static Double haversineKm(Double lat1, Double lon1, Decimal lat2, Decimal lon2) {
         if (lat2 == null || lon2 == null) return null;
         Double R = 6371.0;
         Double dLat = Math.PI / 180.0 * (lat2 - lat1);

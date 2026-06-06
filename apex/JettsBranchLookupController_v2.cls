@@ -35,22 +35,24 @@ public with sharing class JettsBranchLookupController {
     private static BranchResult doSearch(BranchRequest req) {
         Integer maxRows = (req.maxResults != null && req.maxResults > 0) ? req.maxResults : 5;
 
-        // ── Step 1: ลองหาสถานี BTS/MRT ที่ตรงกับ searchTerm ──
+        // ── Step 1: ลองหาสถานี BTS/MRT จากทุกคำใน searchTerm ──
         if (String.isNotBlank(req.searchTerm)) {
-            String stationTerm = '%' + req.searchTerm.trim() + '%';
-            List<BTS_MRT_Station__c> stations = [
-                SELECT Id, Station_Name_EN__c, Station_Name_TH__c, Line__c,
-                       Location__Latitude__s, Location__Longitude__s
-                FROM BTS_MRT_Station__c
-                WHERE Station_Name_EN__c LIKE :stationTerm
-                   OR Station_Name_TH__c LIKE :stationTerm
-                WITH USER_MODE
-                LIMIT 1
-            ];
-
-            if (!stations.isEmpty()) {
-                // พบสถานี — ใช้ DISTANCE หาสาขาที่ใกล้ที่สุด
-                return searchByDistance(stations[0], req.branchTypeFilter, maxRows);
+            List<String> tokens = req.searchTerm.trim().split('\\s+');
+            for (String token : tokens) {
+                if (token.length() < 2) continue;
+                String stationTerm = '%' + token + '%';
+                List<BTS_MRT_Station__c> stations = [
+                    SELECT Id, Station_Name_EN__c, Station_Name_TH__c, Line__c,
+                           Location__Latitude__s, Location__Longitude__s
+                    FROM BTS_MRT_Station__c
+                    WHERE Station_Name_EN__c LIKE :stationTerm
+                       OR Station_Name_TH__c LIKE :stationTerm
+                    WITH USER_MODE
+                    LIMIT 1
+                ];
+                if (!stations.isEmpty()) {
+                    return searchByDistance(stations[0], req.branchTypeFilter, maxRows);
+                }
             }
         }
 

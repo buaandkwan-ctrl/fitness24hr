@@ -64,6 +64,17 @@ public with sharing class JettsBranchLookupController {
         return searchByKeyword(req.searchTerm, req.branchTypeFilter, maxRows);
     }
 
+    private static Double haversineKm(Double lat1, Double lon1, Double lat2, Double lon2) {
+        if (lat2 == null || lon2 == null) return null;
+        Double R = 6371.0;
+        Double dLat = Math.PI / 180.0 * (lat2 - lat1);
+        Double dLon = Math.PI / 180.0 * (lon2 - lon1);
+        Double a = Math.sin(dLat/2) * Math.sin(dLat/2)
+                 + Math.cos(Math.PI/180.0*lat1) * Math.cos(Math.PI/180.0*lat2)
+                 * Math.sin(dLon/2) * Math.sin(dLon/2);
+        return R * 2.0 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    }
+
     private static BranchResult searchByDistance(BTS_MRT_Station__c station, String branchTypeFilter, Integer maxRows) {
         Double lat = station.Location__Latitude__s;
         Double lon = station.Location__Longitude__s;
@@ -71,7 +82,8 @@ public with sharing class JettsBranchLookupController {
         List<Branch__c> branches;
         if (String.isNotBlank(branchTypeFilter)) {
             branches = [
-                SELECT Name, Branch_Type__c, District__c, Full_Address__c
+                SELECT Name, Branch_Type__c, District__c, Full_Address__c,
+                       Location__Latitude__s, Location__Longitude__s
                 FROM Branch__c
                 WHERE Active__c = true
                   AND Branch_Type__c = :branchTypeFilter
@@ -81,7 +93,8 @@ public with sharing class JettsBranchLookupController {
             ];
         } else {
             branches = [
-                SELECT Name, Branch_Type__c, District__c, Full_Address__c
+                SELECT Name, Branch_Type__c, District__c, Full_Address__c,
+                       Location__Latitude__s, Location__Longitude__s
                 FROM Branch__c
                 WHERE Active__c = true
                 WITH USER_MODE
@@ -107,6 +120,11 @@ public with sharing class JettsBranchLookupController {
             else if (b.Branch_Type__c == 'Flagship HYROX') typeTag = ' [Flagship HYROX]';
 
             String distLabel = '';
+            Double distKm = haversineKm(lat, lon, b.Location__Latitude__s, b.Location__Longitude__s);
+            if (distKm != null) {
+                Double rounded = Math.round(distKm * 10) / 10.0;
+                distLabel = ' (~' + rounded + ' km)';
+            }
 
             output += '* ' + b.Name + typeTag + distLabel + '\n';
             if (String.isNotBlank(b.Full_Address__c)) {

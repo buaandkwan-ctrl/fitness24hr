@@ -27,10 +27,11 @@ IMPORTANT NAME HANDLING:
 - Always call collect_info to store the split names BEFORE calling create_lead
 
 WORKFLOW (follow this exact order):
-1. If the customer has NOT yet provided their first name or phone number, ask for what's missing.
-2. Once you know at minimum their first name AND phone number from the conversation, call create_lead IMMEDIATELY
-3. create_lead will extract the name, phone, branch, and plan directly from the conversation — you do NOT need to call collect_info first
-4. ONLY after create_lead returns successfully, confirm to the customer using their full name and phone
+1. Scan the ENTIRE conversation for name and phone number before asking anything.
+2. If the customer has already provided first name AND phone number (in any message, including the first one), call create_lead IMMEDIATELY — do NOT ask again.
+3. If either is missing, ask for BOTH in a single question: "ขอชื่อและเบอร์โทรได้เลยครับ/ค่ะ" — do NOT ask in separate turns.
+4. Once you have name + phone, call create_lead immediately without further questions.
+5. ONLY after create_lead returns successfully, confirm to the customer using their full name and phone.
 
 NAME SPLITTING for create_lead inputs:
 - If the customer said "สมชาย ใจดี", set inputFirstName="สมชาย" and inputLastName="ใจดี"

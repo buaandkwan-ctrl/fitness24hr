@@ -65,8 +65,7 @@ public with sharing class JettsBranchLookupController {
         List<Branch__c> branches;
         if (String.isNotBlank(branchTypeFilter)) {
             branches = [
-                SELECT Name, Branch_Type__c, District__c, Full_Address__c,
-                       DISTANCE(Location__c, GEOLOCATION(:lat, :lon), 'km') dist
+                SELECT Name, Branch_Type__c, District__c, Full_Address__c
                 FROM Branch__c
                 WHERE Active__c = true
                   AND Branch_Type__c = :branchTypeFilter
@@ -76,8 +75,7 @@ public with sharing class JettsBranchLookupController {
             ];
         } else {
             branches = [
-                SELECT Name, Branch_Type__c, District__c, Full_Address__c,
-                       DISTANCE(Location__c, GEOLOCATION(:lat, :lon), 'km') dist
+                SELECT Name, Branch_Type__c, District__c, Full_Address__c
                 FROM Branch__c
                 WHERE Active__c = true
                 WITH USER_MODE
@@ -102,8 +100,7 @@ public with sharing class JettsBranchLookupController {
             if (b.Branch_Type__c == 'Jetts Black') typeTag = ' [Jetts Black]';
             else if (b.Branch_Type__c == 'Flagship HYROX') typeTag = ' [Flagship HYROX]';
 
-            Double distKm = (Double) b.get('dist');
-            String distLabel = distKm != null ? ' (~' + String.valueOf(Math.round(distKm * 10) / 10.0) + ' km)' : '';
+            String distLabel = '';
 
             output += '* ' + b.Name + typeTag + distLabel + '\n';
             if (String.isNotBlank(b.Full_Address__c)) {

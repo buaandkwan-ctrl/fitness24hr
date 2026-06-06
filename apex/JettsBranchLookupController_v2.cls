@@ -70,7 +70,6 @@ public with sharing class JettsBranchLookupController {
                 FROM Branch__c
                 WHERE Active__c = true
                   AND Branch_Type__c = :branchTypeFilter
-                  AND Location__c != NULL
                 WITH USER_MODE
                 ORDER BY DISTANCE(Location__c, GEOLOCATION(:lat, :lon), 'km')
                 LIMIT :maxRows
@@ -81,7 +80,6 @@ public with sharing class JettsBranchLookupController {
                        DISTANCE(Location__c, GEOLOCATION(:lat, :lon), 'km') dist
                 FROM Branch__c
                 WHERE Active__c = true
-                  AND Location__c != NULL
                 WITH USER_MODE
                 ORDER BY DISTANCE(Location__c, GEOLOCATION(:lat, :lon), 'km')
                 LIMIT :maxRows

@@ -213,21 +213,20 @@ public with sharing class JettsBranchLookupController {
             return result;
         }
 
-        String output = '';
+        List<String> items = new List<String>();
         for (Branch__c b : branches) {
             String typeTag = '';
             if (b.Branch_Type__c == 'Jetts Black') typeTag = ' [Jetts Black]';
             else if (b.Branch_Type__c == 'Flagship HYROX') typeTag = ' [Flagship HYROX]';
 
-            output += '* ' + b.Name + typeTag + '\n';
-            if (String.isNotBlank(b.Full_Address__c)) {
-                output += '  ' + b.Full_Address__c + '\n';
-            } else if (String.isNotBlank(b.District__c)) {
-                output += '  ' + b.District__c + '\n';
-            }
+            String addr = '';
+            if (String.isNotBlank(b.Full_Address__c)) addr = ' — ' + b.Full_Address__c;
+            else if (String.isNotBlank(b.District__c)) addr = ' — ' + b.District__c;
+
+            items.add('• ' + b.Name + typeTag + addr);
         }
 
-        result.branchListText = output.trim();
+        result.branchListText = String.join(items, '\n');
         return result;
     }
 }

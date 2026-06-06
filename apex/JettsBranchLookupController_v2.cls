@@ -112,21 +112,22 @@ public with sharing class JettsBranchLookupController {
         }
 
         String stationLabel = station.Station_Name_TH__c + ' (' + station.Line__c + ')';
-        String output = 'สาขาใกล้สถานี ' + stationLabel + ':\n\n';
+
+        Double maxDist = 0.0;
+        for (Branch__c b : branches) {
+            Double d = haversineKm(lat, lon, b.Location__Latitude__s, b.Location__Longitude__s);
+            if (d != null && d > maxDist) maxDist = d;
+        }
+        Double radiusKm = Math.round(maxDist * 10) / 10.0;
+
+        String output = 'สาขาใกล้สถานี ' + stationLabel + ' (รัศมีประมาณ ' + radiusKm + ' กม.):\n\n';
 
         for (Branch__c b : branches) {
             String typeTag = '';
             if (b.Branch_Type__c == 'Jetts Black') typeTag = ' [Jetts Black]';
             else if (b.Branch_Type__c == 'Flagship HYROX') typeTag = ' [Flagship HYROX]';
 
-            String distLabel = '';
-            Double distKm = haversineKm(lat, lon, b.Location__Latitude__s, b.Location__Longitude__s);
-            if (distKm != null) {
-                Double rounded = Math.round(distKm * 10) / 10.0;
-                distLabel = ' (~' + rounded + ' km)';
-            }
-
-            output += '* ' + b.Name + typeTag + distLabel + '\n';
+            output += '* ' + b.Name + typeTag + '\n';
             if (String.isNotBlank(b.Full_Address__c)) {
                 output += '  ' + b.Full_Address__c + '\n';
             } else if (String.isNotBlank(b.District__c)) {

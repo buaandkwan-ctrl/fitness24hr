@@ -111,7 +111,13 @@ public with sharing class JettsBranchLookupController {
             return result;
         }
 
-        String stationLabel = station.Station_Name_TH__c + ' (' + station.Line__c + ')';
+        String lineDisplay = station.Line__c;
+        if (lineDisplay == 'BTS Sukhumvit' || lineDisplay == 'BTS Silom') lineDisplay = 'BTS สายสีเขียว';
+        else if (lineDisplay == 'MRT Blue Line') lineDisplay = 'MRT สายสีน้ำเงิน';
+        else if (lineDisplay == 'MRT Purple Line') lineDisplay = 'MRT สายสีม่วง';
+        else if (lineDisplay == 'MRT Yellow Line') lineDisplay = 'MRT สายสีเหลือง';
+        else if (lineDisplay == 'Airport Rail Link') lineDisplay = 'Airport Rail Link';
+        String stationLabel = station.Station_Name_TH__c + ' (' + lineDisplay + ')';
 
         Double maxDist = 0.0;
         for (Branch__c b : branches) {

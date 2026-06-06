@@ -103,7 +103,7 @@ public with sharing class JettsBranchLookupController {
             else if (b.Branch_Type__c == 'Flagship HYROX') typeTag = ' [Flagship HYROX]';
 
             Double distKm = (Double) b.get('dist');
-            String distLabel = distKm != null ? ' (~' + String.valueOf(distKm.setScale(1)) + ' km)' : '';
+            String distLabel = distKm != null ? ' (~' + String.valueOf(Math.round(distKm * 10) / 10.0) + ' km)' : '';
 
             output += '* ' + b.Name + typeTag + distLabel + '\n';
             if (String.isNotBlank(b.Full_Address__c)) {

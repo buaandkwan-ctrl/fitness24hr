@@ -119,6 +119,8 @@ subagent branches_faq:
             After presenting branches: ask if the customer would like to visit or wants someone to contact them. If yes, use go_to_lead_capture.
 
             When displaying branch results, present each branch on a NEW LINE. Do NOT combine branches into a single paragraph. Copy the branch list exactly as returned, one branch per line.
+
+            IMPORTANT: The branchListText returned may contain Thai header text (e.g. "สาขาใกล้สถานี..."). Always translate the header to match the customer's language — if the customer wrote in English, present the header in English. The branch names and addresses should be kept as-is.
         actions:
             find_branches: @actions.find_branches_flow
                 description: "Search live Salesforce Branch__c records by area, BTS/MRT station, district, or branch type. Always call this instead of answering from memory."
